@@ -1,0 +1,346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#Title {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: solid 1px lightgray;
+}
+
+.Projects {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: solid 1px lightgray;
+}
+
+.calc {
+    text-align: center;
+    padding: 1rem;
+}
+
+
+.this-calc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: lightskyblue;
+    margin: 1rem;   /*container's distance from other containers*/
+    padding: 1rem; /*The distance of the contents of the container from the border*/
+    width: 20rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.this-calc h2 {
+    padding: 1rem;;
+}
+
+
+.actual-calc {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+
+#screen {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    background-color: aliceblue;
+    height: 2.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+#Equal {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+#Add {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+
+#Subtract {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+
+#Multiply {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#Divide {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#Clear {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#One {
+    background-color: lightcoral;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#Two {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Three {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Four {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Five {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Six {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Seven {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Eight {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Nine {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#Zero {
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.weather-hub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#search button {
+    cursor: pointer;
+}
+
+#output {
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding: 1rem;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.quiz-container {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#quiz-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#quiz-question-area {
+    margin-bottom: 20px;
+}
+
+#question {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+}
+
+.option.correct {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.option.incorrect {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+#quiz-controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+#next-question, #restart-quiz {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#next-question {
+    background-color: #007bff;
+    color: white;
+}
+
+#next-question:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#restart-quiz {
+    background-color: #6c757d;
+    color: white;
+}
+
+#quiz-result {
+    text-align: center;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#quiz-result h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+#performance-message {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
