@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-crash-2024",
+  "version": "1.0.0",
+  "description": "Node.js Ka Tutorial follow kar raha hoon",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+
+  },
+  "author": "AKA",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
