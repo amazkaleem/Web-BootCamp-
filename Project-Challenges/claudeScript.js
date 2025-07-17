@@ -1,4 +1,4 @@
-// Calculator functionality
+// Calculator functionality (THIS CODE DOES NOT WORK!)
 let calcDisplay = document.getElementById('calcDisplay');
 let currentInput = '0';
 let operator = null;
