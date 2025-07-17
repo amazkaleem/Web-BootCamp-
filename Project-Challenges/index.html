@@ -2,111 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--SEO TAG NUMBER 2-->
-    <title>Project Based Challenges</title> <!--SEO Tag Number 1 -->
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project-Based Challenges</title>
+     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <h1 id = "Title">Project Based Challenges</h1> <!---All Header Tags are considered good for SEO-->
-    <section class = "Projects">
-        <div class="calc"><h2>Challenge No. 1</h2></div>
-        <div class = "this-calc">
-            <h2>Math Genius</h2>
-            <div class = "actual-calc">
-                <div id="screen">
-                    <div id = "type-into" style="height: 50%;">|</div>
-                    <div id = "result" style="height: 50%;"></div>
-                </div>
-                <div id="One">1</div>
-                <div id="Two">2</div>
-                <div id="Three">3</div>
-                <div id="Four">4</div>
-                <div id="Five">5</div>
-                <div id="Six">6</div>
-                <div id="Seven">7</div>
-                <div id="Eight">8</div>
-                <div id="Nine">9</div>
-                <div id="Zero">0</div>
-                <div id="Add">+</div>
-                <div id="Subtract">-</div>
-                <div id="Multiply">x</div>
-                <div id="Divide">/</div>
-                <div id="Equal">=</div>
-                <div id="Clear">CLEAR</div>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>Project-Based Challenges</h1>
+            <p>Five interactive web applications in one page</p>
         </div>
-    </section>
 
-    <section class="Projects">
-        <div class="calc"><h2>Challenge No. 2</h2></div>
-        <div class = "this-calc">
-            <h2>Your Weather Expert</h2>
-            <div class = "weather-hub">
-                <div id="search">
-                    <input type="text" id="search-bar" placeholder="Enter City Name">
-                    <button id="search-button">Search</button>
-                </div>
-                <div id="output">
-                    <div id="city">City: </div>
-                    <div id="temp">Temperature: </div>
-                    <div id="desc">Feels like: </div>
+        <div class="challenges-grid">
+            <!-- Challenge 36: Calculator -->
+            <div class="challenge-card">
+                <h2 class="challenge-title">36. Build a Calculator</h2>
+                <div class="calculator">
+                    <div class="calc-display" id="calcDisplay">0</div>
+                    <button class="calc-btn" onclick="clearCalc()">C</button>
+                    <button class="calc-btn" onclick="appendToCalc('/')" data-operator>÷</button>
+                    <button class="calc-btn" onclick="appendToCalc('*')" data-operator>×</button>
+                    <button class="calc-btn" onclick="deleteLast()">⌫</button>
+                    <button class="calc-btn" onclick="appendToCalc('7')">7</button>
+                    <button class="calc-btn" onclick="appendToCalc('8')">8</button>
+                    <button class="calc-btn" onclick="appendToCalc('9')">9</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                    <button class="calc-btn" onclick="appendToCalc('4')">4</button>
+                    <button class="calc-btn" onclick="appendToCalc('5')">5</button>
+                    <button class="calc-btn" onclick="appendToCalc('6')">6</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                    <button class="calc-btn" onclick="appendToCalc('1')">1</button>
+                    <button class="calc-btn" onclick="appendToCalc('2')">2</button>
+                    <button class="calc-btn" onclick="appendToCalc('3')">3</button>
+                    <button class="calc-btn equals" onclick="calculateResult()" rowspan="2">=</button>
+                    <button class="calc-btn" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
+                    <button class="calc-btn" onclick="appendToCalc('.')">.</button>
                 </div>
             </div>
-    </section>
 
-    <section class="Projects">
-        <div class="calc"><h2>Challenge No. 3</h2></div>
-        <div class="this-calc">
-            <h2>Knowledge Master</h2>
-            <div class="quiz-container">
-                <div id="quiz-info">
-                    <div id="quiz-score">Score: <span id="score">0</span></div>
-                    <div id="quiz-progress">Question: <span id="current-question">1</span>/<span id="total-questions">5</span></div>
-                </div>
-
-                <!--
-                We used span tags within the div tags for a specific purpose. The span tags are used to isolate just the numbers (score, current question number, and total questions) that will be dynamically updated by JavaScript.
-
-                This approach is important for several reasons:
-
-                1. **Targeted updates**: By placing span tags around only the values that change, we can update just those specific parts of the text without having to rewrite the entire content of the div. This is more efficient and cleaner.
-
-                2. **Separation of content**: It separates the static text ("Score:", "Question:", "/") from the dynamic values (0, 1, 5) that will change during quiz interaction.
-
-                3. **Easy DOM manipulation**: When using JavaScript to update the content, having specific elements with IDs makes it much easier to target just those elements. For example:
-                ```javascript
-                document.getElementById('score').textContent = newScore;
-                ```
-                This is cleaner than having to manipulate the entire text content of the parent div.
-
-                4. **Styling flexibility**: If needed, you can apply different styles to just the numbers without affecting the labels. For instance, you might want the actual score to be in a different color or font size than the label "Score:".
-
-                5. **Semantic HTML**: Using span tags for small inline elements that might need to be referenced or styled separately is a common best practice in HTML.
-
-                Without these span tags, updating the content would require replacing the entire text content of each div, including the labels, which would be less efficient and more error-prone.
-                -->
-
-                <div id="quiz-question-area">
-                    <div id="question">Loading question...</div>
-                    <div id="options" class="quiz-options">
-                        <button class="option" data-index="0">Option 1</button>
-                        <button class="option" data-index="1">Option 2</button>
-                        <button class="option" data-index="2">Option 3</button>
-                        <button class="option" data-index="3">Option 4</button>
+            <!-- Challenge 37: Weather App -->
+            <div class="challenge-card">
+                <h2 class="challenge-title">37. Create a Weather App</h2>
+                <div class="weather-app">
+                    <input type="text" class="weather-input" id="cityInput" placeholder="Enter city name">
+                    <button class="weather-btn" onclick="getWeather()">Get Weather</button>
+                    <div class="weather-result" id="weatherResult">
+                        Enter a city name to get weather information
                     </div>
                 </div>
-                <div id="quiz-controls">
-                    <button id="next-question" disabled>Next Question</button>
-                    <button id="restart-quiz">Restart Quiz</button>
+            </div>
+
+            <!-- Challenge 38: Quiz App -->
+            <div class="challenge-card">
+                <h2 class="challenge-title">38. Build a Quiz App</h2>
+                <div class="quiz-app">
+                    <div class="quiz-question" id="quizQuestion">
+                        Click "Next Question" to start the quiz!
+                    </div>
+                    <div class="quiz-options" id="quizOptions">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    <button class="weather-btn" onclick="nextQuestion()">Next Question</button>
+                    <button class="weather-btn" onclick="submitAnswer()" style="background: #4CAF50; margin-left: 10px;">Submit Answer</button>
+                    <div class="quiz-score" id="quizScore">Score: 0/0</div>
                 </div>
-                <div id="quiz-result" class="hidden">
-                    <h3>Quiz Complete!</h3>
-                    <p>Your final score: <span id="final-score">0</span> out of <span id="max-score">5</span></p>
-                    <div id="performance-message">Great job!</div>
+            </div>
+
+            <!-- Challenge 39: Countdown Timer -->
+            <div class="challenge-card">
+                <h2 class="challenge-title">39. Develop a Countdown Timer</h2>
+                <div class="countdown-timer">
+                    <div class="countdown-inputs">
+                        <input type="number" class="countdown-input" id="hoursInput" placeholder="Hours" min="0" max="23">
+                        <input type="number" class="countdown-input" id="minutesInput" placeholder="Minutes" min="0" max="59">
+                        <input type="number" class="countdown-input" id="secondsInput" placeholder="Seconds" min="0" max="59">
+                    </div>
+                    <div class="countdown-display" id="countdownDisplay">00:00:00</div>
+                    <div class="countdown-controls">
+                        <button class="countdown-btn start" onclick="startCountdown()">Start</button>
+                        <button class="countdown-btn stop" onclick="stopCountdown()">Stop</button>
+                        <button class="countdown-btn reset" onclick="resetCountdown()">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Challenge 40: Drag and Drop Interface -->
+            <div class="challenge-card">
+                <h2 class="challenge-title">40. Create a Drag-and-Drop Interface</h2>
+                <div class="drag-drop-container">
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" class="add-item-input" id="newItemInput" placeholder="Add new item">
+                        <button class="add-item-btn" onclick="addDragItem()">Add Item</button>
+                    </div>
+                    <div class="drag-list" id="dragList">
+                        <div class="drag-item" draggable="true">Task 1: Learn HTML</div>
+                        <div class="drag-item" draggable="true">Task 2: Learn CSS</div>
+                        <div class="drag-item" draggable="true">Task 3: Learn JavaScript</div>
+                        <div class="drag-item" draggable="true">Task 4: Build Projects</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
