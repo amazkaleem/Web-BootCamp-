@@ -58,6 +58,36 @@ const calculateResult = () => {
     calcDisplay.innerText = result;
 };
 
+
+//Weather App Script
+let cityTag = document.querySelector(".weather-app input");
+let getButton = document.querySelector(".weather-app button");
+let parentTag = document.querySelector(".weather-app");
+
+let cityName = "";
+let displayInfo = document.querySelector("#weatherResult");
+const apiKey = "db1b90cee33e2b4cec94b71e2a70ba1d";
+
+cityTag.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") getWeather();
+});
+
+const getWeather = async () => {
+    cityName = cityTag.value.trim(); //Trim cityName to avoid extra spaces
+    if (cityName != "") {
+        try {
+            let baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+            let response = await fetch(baseURL);
+            let data = await response.json();
+            let temperature = data.main.temp;
+            displayInfo.innerText = `Temperature of ${cityName} is ${temperature} Degree Celsius`;
+        } catch {
+            console.log("The URL gave nothing");
+            displayInfo.innerText = "Please enter a valid city name(e.g, Islamabad)";
+        }
+    }
+}
+
 //Countdown Timer Script
 let timer = document.querySelectorAll(".countdown-inputs input");
 let display = document.querySelector(".countdown-display");
@@ -80,7 +110,7 @@ timer.forEach((input) => {
                 hours = "23";
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             }
-        } else if (input.id === "minutesInput") {
+        } else {
              let minuteValue = parseInt(input.value);
              if (minuteValue >= parseInt(input.min) && minuteValue <= parseInt(input.max)) {
                 minutes = String(minuteValue).padStart(2, "0");
@@ -90,18 +120,6 @@ timer.forEach((input) => {
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             } else {
                 minutes = "59";
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-            }
-        } else if (input.id === "secondsInput") {
-            let secondValue = parseInt(input.value);
-            if (secondValue >= parseInt(input.min) && secondValue <= parseInt(input.max)) {
-                seconds = String(secondValue).padStart(2, "0");
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-            } else if (secondValue < parseInt(input.min)) {
-                seconds = "00";
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-            } else {
-                seconds = "59";
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             }
         }
@@ -164,9 +182,10 @@ function resetCountdown() {
     display.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-
 timer.forEach((input) => {
     input.addEventListener("focus", stopCountdown); // Auto-stop on interaction
 });
+
+
 
 
