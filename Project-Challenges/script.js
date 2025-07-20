@@ -62,7 +62,6 @@ const calculateResult = () => {
 //Weather App Script
 let cityTag = document.querySelector(".weather-app input");
 let getButton = document.querySelector(".weather-app button");
-let parentTag = document.querySelector(".weather-app");
 
 let cityName = "";
 let displayInfo = document.querySelector("#weatherResult");
@@ -88,7 +87,169 @@ const getWeather = async () => {
     }
 }
 
+
+//Quiz App Script
+//In the following script we use two important functions:
+//Math.random() --> Generates a random number between 0(inclusive) and 1(exclusive)
+//sort() --> sorts any array of elements, comparing each element based on their UTF-16 codes
+//sort() has an optional compare function parameter that allow us to accurately sort numbers.
+//It has the following syntax:
+//function compareFunction(a, b) {
+//      1. < 0...a comes first --> comment
+//      2. == 0...no change --> comment
+//      3. > 0...b comes first --> comment
+//      return a - b --> code line
+//}
+//The spread operator '...' Take all the elements from an array(e.g, incorrect_answers) and spread them out into a new array to avoid nested arrays.
+
+
+//The weird forms like &#039; inside data from the API are HTML character entities. For example, &#039; represents an apostrophe (').
+// The Open Trivia DB API returns some special characters as HTML entities to ensure safe display in HTML.
+// Why does this happen?
+
+// The API encodes special characters (like quotes, ampersands, etc.) as HTML entities.
+// When you set innerText or innerHTML with these strings, the entities are shown as-is unless decoded.
+//Refer to decodeHTMLEntities() for the solution to this problem
+
+let userManual = document.querySelector(".quiz-question");
+let options = document.querySelector(".quiz-options");
+let beforeButton = document.querySelector(".quiz-app #beforeQuiz");
+let afterButtons = document.querySelectorAll(".quiz-app #afterQuiz");
+let scoreElement = document.querySelector(".quiz-score");
+let userScore = 0;
+let questionCounter = 0;
+let userAnswer = "";
+let optionArray = [];
+let questions = [];
+let correctAnswers = [];
+let shuffledAnswerOptions = [];
+
+
+function decodeHTMLEntities(text) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = text;
+    return txt.value;
+}
+
+const getQuiz = async () => {
+    // Show loading message and hide all buttons
+    userManual.innerText = "Loading Quiz...";
+    afterButtons.forEach((button) => {
+        button.style.display = "none";
+    });
+    beforeButton.style.display = "none";
+
+    try {
+        const URL = "https://opentdb.com/api.php?amount=10&type=multiple";
+        let response = await fetch(URL);
+        let data = await response.json();
+
+        // Show buttons after data is fetched
+        afterButtons.forEach((button) => {
+            button.style.display = "inline";
+        });
+
+        // Extract questions and correct answers
+        questions = data.results.map(item => item.question);
+        correctAnswers = data.results.map(item => item.correct_answer);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        shuffledAnswerOptions = data.results.map(item => {
+            const options = [item.correct_answer, ...item.incorrect_answers];
+            return shuffleArray(options);
+        });
+        nextQuestion();
+    } catch {
+        console.log("There was an error fetching data");
+        userManual.innerText = "An error occurred while generating quiz. Please try again later";
+    }
+}
+
+const resetQuiz = () => {
+    if (questionCounter === 10) {
+        userManual.innerText = "The quiz has finished. If you want a retake, click 'Start Quiz!' below";
+         // Clear previous options
+        options.innerHTML = "";
+        optionArray.length = 0;
+        userScore = 0;
+        questionCounter = 0;
+        userAnswer = "";
+        shuffledAnswerOptions.length = 0;
+        questions.length = 0;
+        correctAnswers.length = 0;
+        afterButtons.forEach((button) => {
+            button.style.display = "none";
+        })
+        beforeButton.style.display = "inline";
+    }
+}
+
+const nextQuestion = () => {
+    if (questionCounter >= 10) {
+        resetQuiz();
+        return;
+    }
+
+    // Clear previous options
+    options.innerHTML = "";
+    optionArray.length = 0;
+
+    // Load next question and options
+    userManual.innerText = decodeHTMLEntities(questions[questionCounter]);
+    for (let j = 0; j < 4; j++) {
+        optionArray[j] = document.createElement("div");
+        optionArray[j].innerText = decodeHTMLEntities(shuffledAnswerOptions[questionCounter][j]);
+        optionArray[j].className = "quiz-option";
+        optionArray[j].addEventListener("click", function() {
+            // Remove 'selected' from all options
+            optionArray.forEach(opt => opt.classList.remove("selected"));
+            // Add 'selected' to the clicked option
+            optionArray[j].classList.add("selected");
+            userAnswer = optionArray[j].innerText;
+        });
+        options.append(optionArray[j]);
+    }
+
+    questionCounter++;
+}
+
+const submitAnswer = () => {
+    if (userAnswer === correctAnswers[questionCounter - 1]) {
+        userScore++;
+        scoreElement.innerText = `${userScore}/10`;
+    }
+    
+    options.innerHTML = "";
+    optionArray.length = 0; //Emptying the array
+
+    if (questionCounter === 10) {
+        userManual.innerText = "The quiz has finished. If you want a retake, click 'Start Quiz!' below";
+        userScore = 0;
+        questionCounter = 0;
+        userAnswer = "";
+        shuffledAnswerOptions = [];
+        questions = [];
+        correctAnswers = [];
+        afterButtons.forEach((button) => {
+            button.style.display = "none";
+        })
+        beforeButton.style.display = "inline";
+        return;
+    } else {
+        nextQuestion();
+    }
+}
+
+
 //Countdown Timer Script
+//Some important functions used within the following code are:
+//String() --> takes a number as a parameter and returns a string
+//padStart() --> pads a string from the start. It pads a string with another string (multiple times) until it reaches a given length.
+//setInterval() --> calls a function at specified intervals (in milliseconds).The setInterval() method continues calling the function until clearInterval() is called, or the window is closed.
+
 let timer = document.querySelectorAll(".countdown-inputs input");
 let display = document.querySelector(".countdown-display");
 let hours = display.textContent.slice(0, -6);
@@ -186,6 +347,77 @@ timer.forEach((input) => {
     input.addEventListener("focus", stopCountdown); // Auto-stop on interaction
 });
 
+// Drag and Drop functionality
+let draggedElement = null;
 
+function addDragItem() {
+    const input = document.getElementById('newItemInput');
+    const text = input.value.trim();
+    
+    if (!text) return;
+    
+    const dragList = document.getElementById('dragList');
+    const newItem = document.createElement('div');
+    newItem.className = 'drag-item';
+    newItem.textContent = text;
+    newItem.draggable = true;
+    
+    dragList.appendChild(newItem);
+    input.value = '';
+}
 
+// Initialize drag and drop
+document.addEventListener('DOMContentLoaded', function() {
+    const dragList = document.getElementById('dragList');
+    
+    dragList.addEventListener('dragstart', function(e) {
+        if (e.target.classList.contains('drag-item')) {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+        }
+    });
 
+    dragList.addEventListener('dragend', function(e) {
+        if (e.target.classList.contains('drag-item')) {
+            e.target.classList.remove('dragging');
+        }
+    });
+
+    dragList.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dragList.classList.add('drag-over');
+    });
+
+    dragList.addEventListener('dragleave', function(e) {
+        dragList.classList.remove('drag-over');
+    });
+
+    dragList.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dragList.classList.remove('drag-over');
+        
+        if (draggedElement) {
+            const afterElement = getDragAfterElement(dragList, e.clientY);
+            if (afterElement == null) {
+                dragList.appendChild(draggedElement);
+            } else {
+                dragList.insertBefore(draggedElement, afterElement);
+            }
+        }
+    });
+});
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.drag-item:not(.dragging)')];
+    
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}

@@ -62,9 +62,10 @@
                     <div class="quiz-options" id="quizOptions">
                         <!-- Options will be populated by JavaScript -->
                     </div>
-                    <button class="weather-btn" onclick="nextQuestion()">Next Question</button>
-                    <button class="weather-btn" onclick="submitAnswer()" style="background: #4CAF50; margin-left: 10px;">Submit Answer</button>
-                    <div class="quiz-score" id="quizScore">Score: 0/0</div>
+                    <button class="weather-btn" id="beforeQuiz" onclick="getQuiz()">Start Quiz!</button>
+                    <button class="weather-btn" id="afterQuiz" onclick="nextQuestion()" style="display: none;">Next Question</button>
+                    <button class="weather-btn" id="afterQuiz" onclick="submitAnswer()" style="background: #4CAF50; margin-left: 10px; display: none;">Submit Answer</button>
+                    <div class="quiz-score" id="quizScore">Score: 0/10</div>
                 </div>
             </div>
 
