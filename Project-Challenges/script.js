@@ -271,7 +271,7 @@ timer.forEach((input) => {
                 hours = "23";
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             }
-        } else {
+        } else if (input.id === "minutesInput") {
              let minuteValue = parseInt(input.value);
              if (minuteValue >= parseInt(input.min) && minuteValue <= parseInt(input.max)) {
                 minutes = String(minuteValue).padStart(2, "0");
@@ -281,6 +281,18 @@ timer.forEach((input) => {
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             } else {
                 minutes = "59";
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+            }
+        } else if (input.id === "secondsInput") {
+            let secondsValue = parseInt(input.value);
+             if (secondsValue >= parseInt(input.min) && secondsValue <= parseInt(input.max)) {
+                seconds = String(secondsValue).padStart(2, "0");
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+            } else if (secondsValue < parseInt(input.min)) {
+                seconds = "00";
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+            } else {
+                seconds = "59";
                 display.textContent = hours + ":" + minutes + ":" + seconds;
             }
         }
@@ -348,6 +360,12 @@ timer.forEach((input) => {
 });
 
 // Drag and Drop functionality
+// 1. 'dragstart'   - Fired when the user starts dragging a draggable element. Used to mark the element as being dragged.
+// 2. 'dragend'     - Fired when the drag operation ends (drop or cancel). Used to clean up any drag-related styles.
+// 3. 'dragover' - Fired when a dragged element is over a valid drop target. Used to allow dropping by calling preventDefault().
+// 4. 'dragleave' - Fired when a dragged element leaves a valid drop target. Used to remove visual cues for dropping.
+// 5. 'drop' - Fired when a dragged element is dropped on a valid drop target. Used to insert the dragged element at the new position.
+// 6. 'DOMContentLoaded' - Fired when the initial HTML document has been completely loaded and parsed. Used to initialize the drag-and-drop event listeners.
 let draggedElement = null;
 
 function addDragItem() {
@@ -360,7 +378,7 @@ function addDragItem() {
     const newItem = document.createElement('div');
     newItem.className = 'drag-item';
     newItem.textContent = text;
-    newItem.draggable = true;
+    newItem.draggable = true; //MDN Docs: The draggable property of the HTMLElement interface gets and sets a Boolean primitive indicating if the element is draggable. It reflects the value of the draggable HTML global attribute.
     
     dragList.appendChild(newItem);
     input.value = '';
@@ -379,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     dragList.addEventListener('dragend', function(e) {
         if (e.target.classList.contains('drag-item')) {
-            e.target.classList.remove('dragging');
+            e.target.classList.remove('dragging'); //By default, most elements in the browser do not allow dropping. Calling e.preventDefault() on the 'dragover' event tells the browser that the current element (here, dragList) is a valid drop target, enabling the drop operation.
         }
     });
 
@@ -396,6 +414,11 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         dragList.classList.remove('drag-over');
         
+
+        //The clientY property returns the vertical client coordinate of the mouse pointer when a mouse event occurs. The clientY property is read-only.
+        //getDragAfterElement(dragList, e.clientY) checks all the items in the list (except the one being dragged) and finds the first item that is below the mouse cursor (e.clientY).
+        // It returns the element after which the dragged item should be placed.
+        // If afterElement is null, the dragged item is appended to the end of the list. Otherwise, it is inserted before afterElement.
         if (draggedElement) {
             const afterElement = getDragAfterElement(dragList, e.clientY);
             if (afterElement == null) {
@@ -407,9 +430,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+//getDragAfterElement(container, y) does:
+
+// 1.Looks at all draggable items except the one being dragged.
+
+// 2.Compares the current cursor y position to each item’s center.
+
+// 3.Finds the closest element below the cursor to insert the dragged item before.
+
+// 4.Returns that element (or undefined if it's going to the end).
+
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.drag-item:not(.dragging)')];
-    
+
+
+    // The Element.getBoundingClientRect() method returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
+    //Refere to "getBoundingClientRect() return object" for more insight
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
